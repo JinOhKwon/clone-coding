@@ -71,10 +71,11 @@ class Table {
             this.trRef.appendChild(this.tdRef);
             let lblCancel = document.createElement("label");
             lblCancel.innerHTML = "✖";
-            lblCancel.setAttribute("onclick", "crudApp.Cancel(this)");
+            lblCancel.setAttribute("onclick", "cancel()");
             lblCancel.setAttribute("style", "display:none;");
             lblCancel.setAttribute("title", "Cancel");
             lblCancel.setAttribute("id", "lbl" + i);
+            lblCancel.onclick = this.cancel();
             this.tdRef.appendChild(lblCancel);
 
             // 저장
@@ -85,7 +86,8 @@ class Table {
             btSave.setAttribute("value", "Save");
             btSave.setAttribute("id", "Save" + i);
             btSave.setAttribute("style", "display:none;");
-            btSave.setAttribute("onclick", "crudApp.Save(this)");
+            btSave.setAttribute("onclick", "save()");
+            btSave.onclick = this.save();
             this.tdRef.appendChild(btSave);
 
             // 수정
@@ -96,7 +98,7 @@ class Table {
             btUpdate.setAttribute("value", "Update");
             btUpdate.setAttribute("id", "Edit" + i);
             btUpdate.setAttribute("style", "background-color:#44CCEB;");
-            btUpdate.setAttribute("onclick", "crudApp.Update(this)");
+            btUpdate.setAttribute("onclick", "update()");
             this.tdRef.appendChild(btUpdate);
 
             // 삭제
@@ -106,7 +108,7 @@ class Table {
             btDelete.setAttribute("type", "button");
             btDelete.setAttribute("value", "Delete");
             btDelete.setAttribute("style", "background-color:#ED5650;");
-            btDelete.setAttribute("onclick", "crudApp.Delete(this)");
+            btDelete.setAttribute("onclick", "remove()");
             this.tdRef.appendChild(btDelete);
         }
     }
@@ -142,12 +144,22 @@ class Table {
         btNew.setAttribute("type", "button");
         btNew.setAttribute("value", "Create");
         // btNew.setAttribute("id", "New" + i);
-        btNew.setAttribute("id", "New" );
+        btNew.setAttribute("id", "New");
         btNew.setAttribute("style", "background-color:#207DD1;");
-        btNew.setAttribute("onclick", "crudApp.CreateNew(this)");
+        btNew.setAttribute("onclick", "create(this)");
 
         this.tdRef.appendChild(btNew);
     }
+
+    cancel() {}
+
+    save() {}
+
+    update() {}
+
+    remove() {}
+
+    createNew() {}
 }
 
 class Data {
