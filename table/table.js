@@ -32,12 +32,16 @@ class Table {
         this.init();
     }
 
-    init() {
-        this.tableRef.setAttribute("id", "booksTable");
+    init(isReload = false) {
+        if(isReload) {
+            this.container.removeChild(document.getElementById(`booksTable`));
+        }
+        
+        this.tableRef.setAttribute("id", `booksTable`);
 
         this.createHeader();
         this.createBody();
-        this.insertRow();
+        this.newLineRow();
         this.container.appendChild(this.tableRef);
     }
 
@@ -75,7 +79,7 @@ class Table {
             lblCancel.setAttribute("style", "display:none;");
             lblCancel.setAttribute("title", "Cancel");
             lblCancel.setAttribute("id", "lbl" + i);
-            lblCancel.onclick = this.cancel();
+            lblCancel.addEventListener('click', this.cancel);
             this.tdRef.appendChild(lblCancel);
 
             // 저장
@@ -86,8 +90,7 @@ class Table {
             btSave.setAttribute("value", "Save");
             btSave.setAttribute("id", "Save" + i);
             btSave.setAttribute("style", "display:none;");
-            btSave.setAttribute("onclick", "save()");
-            btSave.onclick = this.save();
+            btSave.addEventListener('click', this.save);
             this.tdRef.appendChild(btSave);
 
             // 수정
@@ -98,7 +101,7 @@ class Table {
             btUpdate.setAttribute("value", "Update");
             btUpdate.setAttribute("id", "Edit" + i);
             btUpdate.setAttribute("style", "background-color:#44CCEB;");
-            btUpdate.setAttribute("onclick", "update()");
+            btUpdate.addEventListener('click', this.update);
             this.tdRef.appendChild(btUpdate);
 
             // 삭제
@@ -108,12 +111,12 @@ class Table {
             btDelete.setAttribute("type", "button");
             btDelete.setAttribute("value", "Delete");
             btDelete.setAttribute("style", "background-color:#ED5650;");
-            btDelete.setAttribute("onclick", "remove()");
+            btDelete.addEventListener('click', this.remove);
             this.tdRef.appendChild(btDelete);
         }
     }
 
-    insertRow() {
+    newLineRow() {
         let newTr = this.tableRef.insertRow(-1);
 
         this.cols.forEach((col, idx) => {
@@ -132,6 +135,7 @@ class Table {
                     let tBox = document.createElement("input");
                     tBox.setAttribute("type", "text");
                     tBox.setAttribute("value", "");
+                    // tBox.onclick = this.createNew();
                     newRow.appendChild(tBox);
                 }
             }
@@ -146,20 +150,37 @@ class Table {
         // btNew.setAttribute("id", "New" + i);
         btNew.setAttribute("id", "New");
         btNew.setAttribute("style", "background-color:#207DD1;");
-        btNew.setAttribute("onclick", "create(this)");
+        btNew.addEventListener('click', this.create);
 
         this.tdRef.appendChild(btNew);
     }
 
-    cancel() {}
+    // 클릭 이벤트에 해당하는 this는 현재 input값을 가리킨다.
+    // DOM refresh는 어떻게하지...?
 
-    save() {}
+    cancel() {
+        console.log("cancel");
+    }
+    
+    save() {
+        console.log("save");
+    }
+    
+    update() {
+        console.log("update");
+    }
+    
+    remove() {
+        console.log("remove", this);
 
-    update() {}
-
-    remove() {}
-
-    createNew() {}
+        let activeRow = this.parentNode.parentNode.rowIndex;
+        data.boards.splice((activeRow - 1), 1);
+        table.init(true);
+    }
+    
+    create() {
+        console.log("create");
+    }
 }
 
 class Data {
@@ -168,19 +189,19 @@ class Data {
             idx: "1",
             title: "하이",
             category: "유형1",
-            status: "",
+            money: 1000,
         },
         {
             idx: "2",
             title: "제목1",
             category: "유형2",
-            status: "",
+            money: 2000,
         },
         {
             idx: "3",
             title: "제목2",
             category: "유형3",
-            status: "",
+            money: 5000,
         },
     ];
 
@@ -189,4 +210,5 @@ class Data {
     cols = [];
 }
 
-const table = new Table(new Data());
+const data = new Data();
+const table = new Table(data);
