@@ -1,0 +1,19 @@
+{
+  "name": "test-table-example",
+  "version": "0.0.2",
+  "description": "npm 패키지 만들어보기",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JinOhKwon/vanillajs.git"
+  },
+  "author": "kjo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JinOhKwon/vanillajs/issues"
+  },
+  "homepage": "https://github.com/JinOhKwon/vanillajs#readme"
+}

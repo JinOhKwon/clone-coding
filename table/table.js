@@ -300,3 +300,5 @@ class Data {
 
 const data = new Data();
 const table = new Table(data);
+
+export default table;
