@@ -1,9 +1,12 @@
 "use strict";
+// 타입비교 규칙
+// 세밀클론 안되있는거
+// else 붙이기
+// 주석 달기
+// 헬퍼 클래스
 
 const popUpId = document.getElementById("popUp");
-
 const favDialog = document.getElementById("favDialog");
-
 let popUp = () => {
     if (typeof favDialog.showModal === "function") {
         favDialog.showModal();
